@@ -79,8 +79,6 @@ Para la segunda tarea, se proporcionan tres subimágenes de tres clases de micro
 ## 📚 Bibliografía
 
 1. [Opencv](https://docs.opencv.org/4.x/dc/da5/tutorial_py_drawing_functions.html)
-2. [Mondrian](https://www3.gobiernodecanarias.org/medusa/ecoescuela/sa/2017/04/17/descubriendo-a-mondrian/)
-3. [Marilyn POP ART](https://temasycomentariosartepaeg.blogspot.com/p/autor-andy-warhol-1928-1987-titulo.html)
 
 ---
 
