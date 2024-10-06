@@ -180,7 +180,7 @@ Monedas:
 - 0.50 céntimos
 Total: 2.52 €
 
-> [!IMPORTANTE]  
+> [!IMPORTANT]  
 > Aunque este modelo no es completamente preciso, es mucho más eficiente, logrando detectar monedas superpuestas y acercarse al valor real de las monedas en diferentes fotos, incluso en situaciones complejas y desfavorables.
 
 A continuación, se muestra un fragmento del código que se encarga de identificar las monedas:
