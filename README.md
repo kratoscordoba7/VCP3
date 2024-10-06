@@ -256,6 +256,9 @@ Para la segunda tarea, se proporcionan tres subimágenes de tres clases de micro
 ## 📚 Bibliografía
 
 1. [Opencv](https://docs.opencv.org/4.x/dc/da5/tutorial_py_drawing_functions.html)
+2. [Opencv Hough circles](https://docs.opencv.org/4.x/da/d53/tutorial_py_houghcircles.html)
+3. [StackOverflow how to improve accuracy](https://stackoverflow.com/questions/70659992/how-to-improve-accuracy-of-cv2s-houghcircles)
+4. [Opencv tutorial Hough circle](https://docs.opencv.org/4.x/d4/d70/tutorial_hough_circle.html)
 
 ---
 
