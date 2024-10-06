@@ -1,6 +1,6 @@
 <h1 align="center">🌟 Práctica 3 - Visión por Computador (Curso 2024/2025)</h1>
 
-<img align="left" width="200" height="180" src="https://i.imgur.com/PPxO7nw.gif"></a>
+<img align="left" width="200" height="180" src="imagenes/gitcat.gif"></a>
 Se han completado todas las tareas solicitadas de la **Práctica 3** para la asignatura **Visión por Computador**. Detección de formas.
 
 *Trabajo realizado por*:
