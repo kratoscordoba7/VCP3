@@ -240,9 +240,197 @@ Para la segunda tarea, se proporcionan tres subimágenes de tres clases de micro
 - Relación entre los ejes de la elipse ajustada
 - Definido el centroide, relación entre las distancias menor y mayor al contorno
 
+## Explicación
+
+Para completar esta tarea se ha utilzado un modelo SVC predictivo sin redes neuronales. El funcionamiento de este modelo es simple y el procedimeinto que se siguió fue el siguiente:
+   - En primer lugar se entrenó al modelo SVC con datos de las imágenes de prueba, estas imágenes son las denominadas FRA, PEL y TAR. El entrenamiento consiste en umbralizar las imágenes para segmentar las partículas del fondo extrayendo posteriormente datos           relevantes como su área, perímetro, f1score (relación altura/anchura), media del color. Tras el modelo tener datos de todos los ejemplos posibles (FRA, PEL y TAR) se le manda las imágenes de test para que prediga qué tipo es. A continuación se muestran los        contornos que detecta el modelo durante el análisis de las partículas
+
+<div align="center">
+   <img src="imagenes/contorno_1.png">
+   <img src="imagenes/contorno_2.png">
+   <img src="imagenes/contorno_3.png">
+   <img src="imagenes/contorno_4.png">
+   <img src="imagenes/contorno_5.png">
+</div>
+
+El código se divide en las siguientes secciones:
+
+``` python
+def preprocess_and_segment(img):
+    # Aplicar un filtro de mediana
+    img_blur = cv2.GaussianBlur(img, (5,5), 0)
+
+    # Aplicar umbralización adaptativa
+    _, thresh = cv2.threshold(img_blur,0,255,cv2.THRESH_BINARY_INV+cv2.THRESH_OTSU)
+
+    # Extraer los contornos
+    contours, _= cv2.findContours(thresh, cv2.RETR_EXTERNAL , cv2.CHAIN_APPROX_SIMPLE)
+
+    # Filtrar contornos por área para eliminar ruido
+    contours = [c for c in contours if cv2.contourArea(c) > 100]  # Ajusta este valor según tus datos
+    
+        # Visualizar contornos
+    for contour in contours:
+        cv2.drawContours(thresh, [contour], -1, (255, 0, 0), 2)  # Dibuja contornos en rojo   
+    plt.imshow(thresh, cmap='gray')
+    plt.title('Contornos detectados')
+    plt.show()
+    
+    return contours
+```
+Esta función umbraliza la imagen y extrae los contornos que serán analizados para obtener datos por esta sección de código
 
 
+```python
+def extract_features(contour, img_color):
+    features = {}
+    
+    # Calcular características geométricas clave
+    area = cv2.contourArea(contour)
+    perimeter = cv2.arcLength(contour, True)
+    compactness = (perimeter ** 2) / area if area > 0 else 0
 
+    # Usar boundingRect para calcular el aspect ratio
+    _, __, w, h = cv2.boundingRect(contour)
+    aspect_ratio = float(w) / h if h > 0 else 0
+
+    # Calcular el color medio de la partícula usando el contorno
+    mask = np.zeros(img_color.shape[:2], dtype=np.uint8)  # Crear una máscara en blanco
+    cv2.drawContours(mask, [contour], -1, 255, -1)  # Dibujar el contorno en la máscara
+    mean_color = cv2.mean(img_color, mask=mask)  # Obtener el color medio (BGR)
+    
+    isBlack = 1 if ((mean_color[0] + mean_color[1] + mean_color[2]) // 3) <= 30 else 0 
+    # Guardar las características clave, incluyendo el color medio
+    features['area'] = area
+    features['perimeter'] = perimeter
+    features['compactness'] = compactness
+    features['aspect_ratio'] = aspect_ratio
+    features['mean_color_B'] = isBlack
+
+    # Retornar todas las características como un array plano
+    return list(features.values())
+```
+
+La última función que se usa en el código es la que se toma cuando se prueba el modelo tras haber sido entrenado y esa función es:
+
+```python
+# Función para clasificar partículas y evaluar el resultado
+def classify_and_evaluate(X_train, y_train, X_test, y_test):
+    # Usar imputer para manejar valores NaN
+    imputer = SimpleImputer(strategy='mean')
+    X_train = imputer.fit_transform(X_train)
+    X_test = imputer.transform(X_test)
+    
+    # Crear y entrenar el modelo SVM
+    model = SVC()
+    model.fit(X_train, y_train)
+
+    # Hacer predicciones
+    y_pred = model.predict(X_test)
+
+    # Mostrar el número de partículas clasificadas en cada clase
+    unique, counts = np.unique(y_pred, return_counts=True)
+
+    # Evaluar el rendimiento del modelo usando las métricas
+    accuracy = accuracy_score(y_test, y_pred)
+    precision = precision_score(y_test, y_pred, average='weighted', zero_division=0)
+    recall = recall_score(y_test, y_pred, average='weighted', zero_division=0)
+    f1score = f1_score(y_test, y_pred, average='weighted', zero_division=0)
+
+    print(f"Accuracy: {accuracy:.2f}")
+    print(f"Precision: {precision:.2f}")
+    print(f"Recall: {recall:.2f}")
+    print(f"F1 Score: {f1score:.2f}")
+
+    # Matriz de confusión
+    conf_matrix = confusion_matrix(y_test, y_pred)
+    plt.figure(figsize=(8,8))
+    sns.set(font_scale = 1.75)#tamaños tipografía
+    sns.set(font_scale = 3.0)
+
+    ax = sns.heatmap(
+            conf_matrix, # confusion matrix 2D array 
+            annot=True, # Muestra números en las celdas
+            fmt='d', # valores enteros
+            cbar=False, # sin barra de colores
+            cmap='flag', # mapa de colores
+            #vmax=175 # contraste de color
+        )
+
+    #Etiquetas matriz de confusión
+    label_font = {'size':'25'}
+    ax.set_xlabel("Predicha", labelpad=-0.75, fontdict=label_font)
+    ax.set_ylabel("Real/Anotado", labelpad=20, fontdict=label_font)
+    
+    #print("Matriz de confusión:")
+    #print(conf_matrix)
+    print("------------------------------------------")
+```
+
+El segmento de código que cohesiona estas funciones es: 
+
+```python
+# Zona entrenamiento
+image_paths_train = ["FRA.png", "PEL.png", "TAR.png"]
+labels_train = [1, 2, 3]
+X_train = []
+y_train = []
+
+for img_path, label in zip(image_paths_train, labels_train):
+    # Leer la imagen en escala de grises
+    img = cv2.imread(img_path, cv2.IMREAD_GRAYSCALE)
+    contours = preprocess_and_segment(img)
+    for contour in contours:
+        features = extract_features(contour, img)
+        if not any(np.isnan(features)) and not any(np.isinf(features)):
+            X_train.append(features)
+            y_train.append(label)
+
+# Zona test
+# Procesar la imagen de prueba
+image_paths_test = ["uno.JPG", "dos.JPG", "tres.JPG"]
+X_test = []
+X_tests = []
+y_test = [[1] * 80, [2] * 54, [3] * 54]
+contador = 0
+
+# Enmascarar la imagen, hacer un AND con la imagen original suma de los valores en promedio con el área y calculo color, si no es oscuro no es 3
+# Extraer características geométricas de la imagen de prueba
+for index in range(len(image_paths_test)):
+    # Leer la imagen en escala de grises
+    img = cv2.imread(image_paths_test[index], cv2.IMREAD_GRAYSCALE)
+    
+    # Obtener el tamaño de la imagen
+    height, width = img.shape   
+    y1, y2, x1, x2 = int(0.05 * height), int(0.80 * height), int(0.15 * width), int(0.95 * width)
+    
+    # Imagen recortada
+    img_mod = img[y1:y2, x1:x2]
+    contours = preprocess_and_segment(img_mod)
+    
+    for contour in contours:
+        # print(f'Contorno = {contour}')
+        features = extract_features(contour, img)
+        contador += 1
+        if not any(np.isnan(list(features))) and not any(np.isinf(list(features))) and len(X_test) < len(y_test[index]): X_test.append(features)
+    
+    X_tests.append(X_test)
+    X_test = []
+    
+    if len(X_tests[index]) == 0:
+        print("No se encontraron partículas en la imagen de prueba.")
+    else:
+        # Clasificar las partículas y evaluar el modelo
+        classify_and_evaluate(X_train, y_train, X_tests[index], y_test[index])
+```
+
+Por último, se adjunta unas imágenes que corresponden a las matrices de confusión que se generaron en la función classify_and_evaluate(X_train, y_train, X_test, y_test)
+
+<div align="center">
+   <img src="imagenes/matriz_1.png">
+   <img src="imagenes/matriz_2.png">
+   <img src="imagenes/matriz_3.png">
+</div>
 
 ---
 
