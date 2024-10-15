@@ -465,6 +465,9 @@ Por último, se adjunta la imagen que corresponde a las matriz de confusión que
 2. [Opencv Hough circles](https://docs.opencv.org/4.x/da/d53/tutorial_py_houghcircles.html)
 3. [StackOverflow how to improve accuracy](https://stackoverflow.com/questions/70659992/how-to-improve-accuracy-of-cv2s-houghcircles)
 4. [Opencv tutorial Hough circle](https://docs.opencv.org/4.x/d4/d70/tutorial_hough_circle.html)
+5. [THRESH OTSU OPENCV](https://docs.opencv.org/4.x/d7/d4d/tutorial_py_thresholding.html)
+6. [SkLearn SVC](https://scikit-learn.org/dev/modules/generated/sklearn.svm.SVC.html)
+7. [Seaborn heatmap](https://seaborn.pydata.org/generated/seaborn.heatmap.html)
 
 ---
 
