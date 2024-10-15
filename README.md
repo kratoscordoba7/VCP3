@@ -424,12 +424,10 @@ for index in range(len(image_paths_test)):
         classify_and_evaluate(X_train, y_train, X_tests[index], y_test[index])
 ```
 
-Por último, se adjunta unas imágenes que corresponden a las matrices de confusión que se generaron en la función classify_and_evaluate(X_train, y_train, X_test, y_test)
+Por último, se adjunta la imagen que corresponde a las matriz de confusión que se generaro en la función classify_and_evaluate(X_train, y_train, X_test, y_test)
 
 <div align="center">
-   <img src="imagenes/matriz_1.png">
-   <img src="imagenes/matriz_2.png">
-   <img src="imagenes/matriz_3.png">
+   <img src="imagenes/final_matrix_confusion.png">
 </div>
 
 ---
