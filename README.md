@@ -242,16 +242,36 @@ Para la segunda tarea, se proporcionan tres subimágenes de tres clases de micro
 
 ## Explicación
 
-Para completar esta tarea se ha utilzado un modelo SVC predictivo sin redes neuronales. El funcionamiento de este modelo es simple y el procedimeinto que se siguió fue el siguiente:
-   - En primer lugar se entrenó al modelo SVC con datos de las imágenes de prueba, estas imágenes son las denominadas FRA, PEL y TAR. El entrenamiento consiste en umbralizar las imágenes para segmentar las partículas del fondo extrayendo posteriormente datos           relevantes como su área, perímetro, f1score (relación altura/anchura), media del color. Tras el modelo tener datos de todos los ejemplos posibles (FRA, PEL y TAR) se le manda las imágenes de test para que prediga qué tipo es. A continuación se muestran los        contornos que detecta el modelo durante el análisis de las partículas
+Para completar esta tarea se ha utilizado un modelo SVC predictivo sin redes neuronales. El funcionamiento de este modelo es simple y el procedimiento que se siguió fue el siguiente:
+   - En primer lugar se entrenó al modelo SVC con datos de las imágenes de prueba, estas imágenes son las denominadas FRA, PEL y TAR. El entrenamiento consiste en umbralizar las imágenes para segmentar las partículas del fondo extrayendo posteriormente datos           relevantes como su área, perímetro, f1score (relación altura/anchura), media del color. Tras el modelo tener datos de todos los ejemplos posibles (FRA, PEL y TAR) se le manda las imágenes de test para que prediga qué tipo es. A continuación se muestran los contornos que detecta el modelo durante el análisis de las partículas.
 
-<div align="center">
-   <img src="imagenes/contorno_1.png">
-   <img src="imagenes/contorno_2.png">
-   <img src="imagenes/contorno_3.png">
-   <img src="imagenes/contorno_4.png">
-   <img src="imagenes/contorno_5.png">
-</div>
+
+<table>
+    <td width="50%">
+        <img src="imagenes/contorno_1.png" width="400" height="260">
+    </td>
+    <td width="50%">
+        <img src="imagenes/contorno_2.png" width="400" height="260">
+    </td>
+</table>
+
+<table>
+    <td width="50%">
+        <img src="imagenes/contorno_3.png" width="400" height="260">
+    </td>
+    <td width="50%">
+        <img src="imagenes/contorno_4.png" width="400" height="260">
+    </td>
+</table>
+
+<table align="center">
+    <div align="center">
+        <td width="100%">
+            <img src="imagenes/contorno_5.png" width="350" height="260">
+        </td>
+    </div>
+</table>                                   
+
 
 El código se divide en las siguientes secciones:
 
