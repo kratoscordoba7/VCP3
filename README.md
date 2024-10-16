@@ -14,7 +14,8 @@ Se han completado todas las tareas solicitadas de la **Práctica 3** para la asi
 [![NumPy](https://img.shields.io/badge/NumPy-%23013243?style=for-the-badge&logo=numpy)](Link_To_Your_NumPy_Page)
 [![OpenCV](https://img.shields.io/badge/OpenCV-%23FD8C00?style=for-the-badge&logo=opencv)](Link_To_Your_OpenCV_Page)
 [![Matplotlib](https://img.shields.io/badge/Matplotlib-%43FF6400?style=for-the-badge&logo=matplotlib&logoColor=white)](Link_To_Your_Matplotlib_Page)
-
+[![Scikit-learn](https://img.shields.io/badge/scikit--learn-F7931E?style=for-the-badge&logo=scikit-learn&logoColor=white)](Link_To_Your_ScikitLearn_Page)
+[![Seaborn](https://img.shields.io/badge/Seaborn-%2304AAE0?style=for-the-badge&logo=seaborn&logoColor=white)](Link_To_Your_Seaborn_Page)
 
 ---
 ## 🚀 Cómo empezar
