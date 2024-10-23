@@ -227,7 +227,7 @@ A continuación, se muestra un fragmento del código que se encarga de identific
                         print(f"{coin['name']} céntimos" if value < 1 else f"{int(value)} euro{'s' if value > 1 else ''}")
                     break  
 ```
-
+Se ha optimizado multiplicando un factor aproximado por el radio de la moneda seleccionada, lo que permite una mayor adaptabilidad a la imagen que se está procesando.
 Gracias a este enfoque, se obtiene una aproximación más precisa en el cálculo del valor total de las monedas en condiciones del mundo real.
 
 
