@@ -23,20 +23,22 @@ Se han completado todas las tareas solicitadas de la **Práctica 3** para la asi
 Para comenzar con el proyecto, sigue estos pasos:
 
 > [!NOTE]  
-> Debes de situarte en un environment configurado como se definió en el cuaderno de la práctica 1 de [otsedom](https://github.com/otsedom/otsedom.github.io/blob/main/VC/P1/README.md#111-comandos-basicos-de-anaconda) y el de la práctica 3 de [otsedom](https://github.com/otsedom/otsedom.github.io/blob/main/VC/P3/README.md).
+> Debes situarte en un environment configurado como se definió en el cuaderno de la práctica 1 de [otsedom](https://github.com/otsedom/otsedom.github.io/blob/main/VC/P1/README.md#111-comandos-basicos-de-anaconda) y el de la práctica 3 de [otsedom](https://github.com/otsedom/otsedom.github.io/blob/main/VC/P3/README.md).
 
 ### Paso 1: Abrir VSCode y situarse en el directorio:
    
-   `C:\Users\TuNombreDeUsuario\anaconda3\envs\VCP3
-   
+   ```bash
+   C:\Users\TuNombreDeUsuario\anaconda3\envs\VCP3
+   ```
+
 ### Paso 2: Clonar y trabajar en el proyecto localmente (VS Code)
 1. **Clona el repositorio**: Ejecuta el siguiente comando en tu terminal para clonar el repositorio:
    ```bash
    git clone https://github.com/kratoscordoba7/VCP3.git
    ```
-2. Una vez clonado, todos los archivos han de estar situado en el environment del paso 1
+2. Una vez clonado, todos los archivos han de estar situados en el environment del paso 1
 
-### Paso 3: Abrir Anaconda prompt y activar el envioroment:
+### Paso 3: Abrir Anaconda prompt y activar el enviroment:
    ```bash
    conda activate NombreDeTuEnvironment
    ```
@@ -244,7 +246,7 @@ Para la segunda tarea, se proporcionan tres subimágenes de tres clases de micro
 ## Explicación
 
 Para completar esta tarea se ha utilizado un modelo SVC predictivo sin redes neuronales. El funcionamiento de este modelo es simple y el procedimiento que se siguió fue el siguiente:
-   - En primer lugar se entrenó al modelo SVC con datos de las imágenes de prueba, estas imágenes son las denominadas FRA, PEL y TAR. El entrenamiento consiste en umbralizar las imágenes para segmentar las partículas del fondo extrayendo posteriormente datos           relevantes como su área, perímetro, f1score (relación altura/anchura), media del color. Tras el modelo tener datos de todos los ejemplos posibles (FRA, PEL y TAR) se le manda las imágenes de test para que prediga qué tipo es. A continuación se muestran los contornos que detecta el modelo durante el análisis de las partículas.
+   - En primer lugar se entrenó al modelo SVC con datos de las imágenes de prueba, estas imágenes son las denominadas FRA, PEL y TAR. El entrenamiento consiste en umbralizar las imágenes para segmentar las partículas del fondo extrayendo posteriormente datos relevantes como su área, perímetro, f1score (relación altura/anchura), media del color. Tras obtener el modelo los datos de todos los ejemplos posibles (FRA, PEL y TAR) se le manda las imágenes de test para que prediga qué tipo es. A continuación se muestran los contornos que detecta el modelo durante el análisis de las partículas.
 
 
 <table>
